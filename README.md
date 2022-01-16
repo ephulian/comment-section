@@ -1,7 +1,7 @@
 Interactive comment section app:
 
 Goal:
-Make use of OOP and JavaScript classes to create a comment prototype, that can be populated with information drawn from a database by using APIs, and dyniamically appended to the DOM.
+- Make use of OOP and JavaScript classes to create a comment prototype, that can be populated with information drawn from a database by using APIs, and dyniamically appended to the DOM.
 
 #APIs #OOP #JSON #DOM
 
