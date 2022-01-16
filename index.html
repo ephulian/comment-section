@@ -1,0 +1,143 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="./data.json">
+  <title>Interactive comments section</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+  <button id="reset-btn" class="reset">RESET</button>
+  <!-- <section class="section-center">
+    <div class="comment-container">
+      <div class="score">
+        <div class="score-btn-container">
+          <h1 class="up">+</h1>
+        </div>
+        <h1 class="current-score">12</h1>
+        <div class="score-btn-container">
+          <h1 class="down">-</h1>
+        </div>
+      </div>
+      <div class="main-section">
+        <div class="user">
+          <div class="user-info">
+            <div class="user-img-container">
+              <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="profile photo">
+            </div>
+            <h2 class="username">
+              Amy Robson
+            </h2>
+            <h2 class="created-at">1 month ago</h2>
+          </div>
+          <div class="reply-delete-buttons-container">
+            <h1 class="delete">Delete</h1>
+            <h1 class="reply">Reply</h1>
+          </div>
+        </div>
+        <textarea class="comment-edit-area" name="" id="" cols="30" rows="5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae cupiditate quo perferendis expedita asperiores laudantium odio nulla, officiis, necessitatibus saepe culpa esse exercitationem ex corrupti. Facilis voluptas a ab cum ipsa quod ratione minima impedit.</textarea>
+        <h1 class="send-update-button">UPDATE</h1>
+      </div>
+    </div>
+    <div class="comment-container">
+      <div class="score">
+        <div class="score-btn-container">
+          <h1 class="up">+</h1>
+        </div>
+        <h1 class="current-score">12</h1>
+        <div class="score-btn-container">
+          <h1 class="down">-</h1>
+        </div>
+      </div>
+      <div class="main-section">
+        <div class="user">
+          <div class="user-info">
+            <div class="user-img-container">
+              <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="profile photo">
+            </div>
+            <h2 class="username">
+              Amy Robson
+            </h2>
+            <h2 class="created-at">1 month ago</h2>
+          </div>
+          <div class="reply-delete-buttons-container">
+            <h1 class="delete">Delete</h1>
+            <h1 class="reply">Reply</h1>
+          </div>
+        </div>
+        <p class="comment-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae cupiditate quo
+          perferendis expedita asperiores laudantium odio nulla, officiis, necessitatibus saepe culpa esse exercitationem ex
+          corrupti. Facilis voluptas a ab cum ipsa quod ratione minima impedit.</p>
+      </div>
+    </div>
+    <div class="reply-container">
+      <div class="score">
+        <div class="score-btn-container">
+          <h1 class="up">+</h1>
+        </div>
+        <h1 class="current-score">12</h1>
+        <div class="score-btn-container">
+          <h1 class="down">-</h1>
+        </div>
+      </div>
+      <div class="main-section">
+        <div class="user">
+          <div class="user-info">
+            <div class="user-img-container">
+              <img class="user-img" src="./images/avatars/image-amyrobson.webp" alt="profile photo">
+            </div>
+            <h2 class="username">
+              Amy Robson
+            </h2>
+            <h2 class="created-at">1 month ago</h2>
+          </div>
+          <div class="reply-delete-buttons-container">
+            <h1 class="delete">Delete</h1>
+            <h1 class="reply">Reply</h1>
+          </div>
+        </div>
+        <p class="comment-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae cupiditate quo
+          perferendis expedita asperiores laudantium odio nulla, officiis, necessitatibus saepe culpa esse exercitationem ex
+          corrupti. Facilis voluptas a ab cum ipsa quod ratione minima impedit.</p>
+      </div>
+    </div>
+    <div class="new-reply-text-input reply-container">
+      <div class="new-reply-text-img-container">
+        <img class="reply-user-img"src="./images/avatars/image-juliusomo.png" alt="">
+      </div>
+      <div class="new-reply-text-area">
+        <textarea name="comment" class="comment-text-area" id="comment-text-area" cols="30" rows="5"></textarea>
+        <div class="reply-buttons-container">
+          <button type="submit" class="send-reply-button">REPLY</button>
+          <button type="submit" class="cancel-reply-button">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <section id="new-comment" class="section-center">
+    <div class="new-reply-text-input new-comment-container">
+      <div class="new-reply-text-img-container">
+        <img class="reply-user-img" src="./images/avatars/image-juliusomo.png" alt="">
+      </div>
+      <div class="new-reply-text-area">
+        <textarea name="comment" class="comment-text-area" id="comment-text-area" cols="30" rows="5"></textarea>
+        <div class="reply-buttons-container">
+          <button type="submit" id="send"class="send-reply-button">SEND</button>
+          <!-- <button type="submit" id="cancel" class="cancel-reply-button">CANCEL</button> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
+<!-- Second click of edit throws an Error -->
+<!-- Add new comment input to the json -> render -->
