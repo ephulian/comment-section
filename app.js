@@ -8,13 +8,11 @@ const newCommentTextContent = document.querySelector('#comment-text-area');
 
 const resetBTN12345 = document.getElementById('reset-btn');
 resetBTN12345.addEventListener('click', () => {
-	// localStorage.setItem('data', JSON.stringify(data));
-	sessionStorage.setItem('data', JSON.stringify(data));
+	localStorage.setItem('data', JSON.stringify(data));
 	location.reload();
 });
 
-// let localData = JSON.parse(localStorage.getItem('data'));
-let localData = JSON.parse(sessionStorage.getItem('data'));
+let localData = JSON.parse(localStorage.getItem('data'));
 
 newCommentSendBTN.addEventListener('click', () => {
 	console.log(localData.comments.length);
@@ -29,8 +27,7 @@ newCommentSendBTN.addEventListener('click', () => {
 	};
 	console.log(comment);
 	localData.comments.push(comment);
-	// localStorage.setItem('data', JSON.stringify(localData));
-	sessionStorage.setItem('data', JSON.stringify(localData));
+	localStorage.setItem('data', JSON.stringify(localData));
 	location.reload();
 });
 
@@ -47,8 +44,7 @@ newCommentTextContent.addEventListener('keypress', (e) => {
 		};
 		console.log(comment);
 		localData.comments.push(comment);
-		// localStorage.setItem('data', JSON.stringify(localData));
-		sessionStorage.setItem('data', JSON.stringify(localData));
+		localStorage.setItem('data', JSON.stringify(localData));
 		location.reload();
 	}
 });
@@ -298,8 +294,7 @@ class addComment {
 					);
 					const commentObjectToBeDeletedFrom = localData.comments;
 					commentObjectToBeDeletedFrom.splice(indexOfObjectToBeDeleted, 1);
-					// localStorage.setItem('data', JSON.stringify(localData));
-					sessionStorage.setItem('data', JSON.stringify(localData));
+					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 					console.log('Comment deleted');
 				} else if (this.type == 'reply') {
@@ -320,8 +315,7 @@ class addComment {
 					console.log(parentObject);
 
 					commentObjectToBeDeletedFrom.splice(indexOfObjectToBeDeleted, 1);
-					// localStorage.setItem('data', JSON.stringify(localData));
-					sessionStorage.setItem('data', JSON.stringify(localData));
+					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 					console.log('Reply deleted');
 				}
@@ -335,15 +329,13 @@ class addComment {
 
 	scoreUp() {
 		this.comment.score++;
-		// localStorage.setItem('data', JSON.stringify(localData));
-		sessionStorage.setItem('data', JSON.stringify(localData));
+		localStorage.setItem('data', JSON.stringify(localData));
 		this.currentScore.innerHTML = this.comment.score;
 	}
 
 	scoreDown() {
 		this.comment.score--;
-		// localStorage.setItem('data', JSON.stringify(localData));
-		sessionStorage.setItem('data', JSON.stringify(localData));
+		localStorage.setItem('data', JSON.stringify(localData));
 		this.currentScore.innerHTML = this.comment.score;
 	}
 
@@ -431,8 +423,7 @@ class addComment {
 				);
 
 				this.sectionCenter.removeChild(this.newReplyTextInput);
-				// localStorage.setItem('data', JSON.stringify(localData));
-				sessionStorage.setItem('data', JSON.stringify(localData));
+				localStorage.setItem('data', JSON.stringify(localData));
 				location.reload();
 			} else if (fullReply.content && this.type == 'reply') {
 				const parentObject = localData.comments.find((comment) => {
@@ -444,8 +435,7 @@ class addComment {
 				].replies.push(fullReply);
 
 				this.sectionCenter.removeChild(this.newReplyTextInput);
-				// localStorage.setItem('data', JSON.stringify(localData));
-				sessionStorage.setItem('data', JSON.stringify(localData));
+				localStorage.setItem('data', JSON.stringify(localData));
 				location.reload();
 			} else {
 				this.newReplyTextArea.style.border = '2px solid red';
@@ -480,8 +470,7 @@ class addComment {
 					);
 
 					this.sectionCenter.removeChild(this.newReplyTextInput);
-					sessionStorage.setItem('data', JSON.stringify(localData));
-					// localStorage.setItem('data', JSON.stringify(localData));
+					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 				} else if (fullReply.content && this.type == 'reply') {
 					const parentObject = localData.comments.find((comment) => {
@@ -493,8 +482,7 @@ class addComment {
 					].replies.push(fullReply);
 
 					this.sectionCenter.removeChild(this.newReplyTextInput);
-					sessionStorage.setItem('data', JSON.stringify(localData));
-					// localStorage.setItem('data', JSON.stringify(localData));
+					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 				} else {
 					this.newReplyTextArea.style.border = '2px solid red';
