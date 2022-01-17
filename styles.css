@@ -131,7 +131,7 @@ COMMENT ==========================
 	gap: 1rem;
 }
 
-.reply {
+.reply-edit {
 	font-size: 1.25rem;
 	color: var(--clr-deep-purple);
 }
@@ -140,6 +140,7 @@ COMMENT ==========================
 	font-size: 1.25rem;
 	color: rgb(161, 49, 50);
 	opacity: 0;
+	display: none;
 	/* opacity: 1; */
 }
 

@@ -17,7 +17,6 @@ let localData = JSON.parse(localStorage.getItem('data'));
 newCommentSendBTN.addEventListener('click', () => {
 	console.log(localData.comments.length);
 	const comment = {
-		// id: localData.comments.length + 1,
 		id: localData.comments.length + 1,
 		content: newCommentTextContent.value,
 		createdAt: 'Now',
@@ -34,7 +33,6 @@ newCommentSendBTN.addEventListener('click', () => {
 newCommentTextContent.addEventListener('keypress', (e) => {
 	if (e.key == 'Enter') {
 		const comment = {
-			// id: localData.comments.length + 1,
 			id: localData.comments.length + 1,
 			content: newCommentTextContent.value,
 			createdAt: 'Now',
@@ -57,149 +55,68 @@ class addComment {
 		// Section Center
 		this.sectionCenter = document.createElement('section');
 		this.sectionCenter.classList.add('section-center');
+		this.sectionCenter.innerHTML = `
+		<div class="${this.type}-container">
+			<div class="score">
+				<div class="score-btn-container">
+					<h1 class="up">+</h1>
+				</div>
+				<h1 class="current-score">${this.comment.score}</h1>
+				<div class="score-btn-container">
+				<h1 class="down">-</h1>
+				</div>
+			</div>
+			<div class="main-section">
+				<div class="user">
+					<div class="user-info">
+						<div class="user-img-container">
+							<img class="user-img" src="${this.comment.user.image.png}" alt="profile photo">
+						</div>
+						<h2 class="username">
+						${this.comment.user.username}
+						</h2>
+						<h2 class="created-at">${this.comment.createdAt}</h2>
+					</div>
+				<div class="reply-delete-buttons-container">
+					<h1 class="delete">Delete</h1>
+					<h1 class="reply-edit">Reply</h1>
+				</div>
+				</div>
+				<p class="comment-content">${this.comment.content}</p>
+			</div>
+		</div>
+		`;
 
-		// Comment | Reply
-		switch (type) {
-			case 'comment':
-				// Comment Container
-				this.commentContainer = document.createElement('div');
-				this.sectionCenter.appendChild(this.commentContainer);
-				this.commentContainer.classList.add('comment-container');
+		// Scoring
+		this.score = this.sectionCenter.querySelector('.score');
+		this.up = this.sectionCenter.querySelector('.up');
+		this.down = this.sectionCenter.querySelector('.down');
+		this.currentScore = this.sectionCenter.querySelector('.current-score');
 
-				// Score
-				this.score = document.createElement('div');
-				this.commentContainer.appendChild(this.score);
-				this.score.classList.add('score');
-				break;
-			case 'reply':
-				// Reply
-				this.replyContainer = document.createElement('div');
-				this.sectionCenter.appendChild(this.replyContainer);
-				this.replyContainer.classList.add('reply-container');
+		// Reply/Edit/Delete
+		this.replyButton = this.sectionCenter.querySelector('.reply-edit');
+		this.deleteButton = this.sectionCenter.querySelector('.delete');
+		this.replyDeleteButtonsContainer = document.querySelector('.reply-delete-buttons-container');
 
-				// Score
-				this.score = document.createElement('div');
-				this.replyContainer.appendChild(this.score);
-				this.score.classList.add('score');
-		}
+		// Editing text
+		this.commentContentText = this.sectionCenter.querySelector('.comment-content');
+		this.mainSection = this.sectionCenter.querySelector('.main-section');
 
-		// Score button up
-		this.scoreBtnContainer = document.createElement('div');
-		this.score.appendChild(this.scoreBtnContainer);
-		this.scoreBtnContainer.classList.add('score-btn-container');
-
-		this.up = document.createElement('h1');
-		this.scoreBtnContainer.appendChild(this.up);
-		this.up.classList.add('up');
-		this.up.innerHTML = '+';
-
-		// Current score
-		this.currentScore = document.createElement('h1');
-		this.score.appendChild(this.currentScore);
-		this.currentScore.classList.add('current-score');
-		this.currentScore.innerHTML = this.comment.score;
-
-		// Score button down
-		this.scoreBtnContainer = document.createElement('div');
-		this.scoreBtnContainer.classList.add('score-btn-container');
-		this.score.appendChild(this.scoreBtnContainer);
-
-		this.down = document.createElement('h1');
-		this.down.classList.add('down');
-		this.down.innerHTML = '-';
-		this.scoreBtnContainer.appendChild(this.down);
-
-		// Main Section
-		switch (type) {
-			case 'comment':
-				this.mainSection = document.createElement('div');
-				this.mainSection.classList.add('main-section');
-				this.commentContainer.appendChild(this.mainSection);
-				break;
-			case 'reply':
-				this.mainSection = document.createElement('div');
-				this.mainSection.classList.add('main-section');
-				this.replyContainer.appendChild(this.mainSection);
-				break;
-		}
-
-		// User
-		this.user = document.createElement('div');
-		this.user.classList.add('user');
-		this.mainSection.appendChild(this.user);
-
-		// User Info
-		this.userInfo = document.createElement('div');
-		this.userInfo.classList.add('user-info');
-		this.user.appendChild(this.userInfo);
-
-		// User Image container
-		this.userImgContainer = document.createElement('div');
-		this.userImgContainer.classList.add('user-img-container');
-		this.userInfo.appendChild(this.userImgContainer);
-
-		// User Image
-		this.userImg = document.createElement('img');
-		this.userImg.classList.add('user-img');
-		this.userImg.src = comment.user.image.png;
-		this.userImgContainer.appendChild(this.userImg);
-
-		// Username
-		this.username = document.createElement('h2');
-		this.username.innerHTML = this.comment.user.username;
-		this.userInfo.appendChild(this.username);
-
-		// Created at
-		this.createdAt = document.createElement('h2');
-		this.createdAt.classList.add('created-at');
-		this.createdAt.innerHTML = comment.createdAt;
-		this.userInfo.appendChild(this.createdAt);
-
-		// Reply/Delete buttons container
-		this.replyDeleteButtonsContainer = document.createElement('div');
-		this.replyDeleteButtonsContainer.classList.add(
-			'reply-delete-buttons-container'
-		);
-		this.user.appendChild(this.replyDeleteButtonsContainer);
+		// Add all to DOM
+		document.body.insertBefore(this.sectionCenter, newComment);
 
 		// Delete button only for current users comments
 		if (localData.currentUser.username === this.comment.user.username) {
-			// Delete button
-			this.deleteButton = document.createElement('h1');
-			this.deleteButton.classList.add('delete');
-			this.deleteButton.innerHTML = 'Delete';
-			this.replyDeleteButtonsContainer.appendChild(this.deleteButton);
-		}
-
-		if (localData.currentUser.username === this.comment.user.username) {
-			// Reply button
-			this.replyButton = document.createElement('h1');
-			this.replyButton.classList.add('reply');
+			this.deleteButton.style.display = 'block';
 			this.replyButton.innerHTML = 'Edit';
-			this.replyDeleteButtonsContainer.appendChild(this.replyButton);
 		} else {
-			this.replyButton = document.createElement('h1');
-			this.replyButton.classList.add('reply');
 			this.replyButton.innerHTML = 'Reply';
-			this.replyDeleteButtonsContainer.appendChild(this.replyButton);
 		}
-
-		// this.replyButton = document.createElement('h1');
-		// this.user.appendChild(this.replyButton);
-		// this.replyButton.classList.add('reply');
-		// this.replyButton.innerHTML = 'Reply';
-
-		// Comment content
-		this.commentContentText = document.createElement('p');
-		this.commentContentText.classList.add('comment-content');
-		this.commentContentText.innerHTML = comment.content;
-		this.mainSection.appendChild(this.commentContentText);
 
 		// Bind this to all functions
 		this.scoreUp = this.scoreUp.bind(this);
 		this.scoreDown = this.scoreDown.bind(this);
 		this.addReply = this.addReply.bind(this);
-		// this.pushReply = this.pushReply.bind(this);
 
 		// Score interactivity
 		this.score.addEventListener(
@@ -208,9 +125,11 @@ class addComment {
 				// console.log(e.target);
 				switch (e.target) {
 					case this.up:
+						console.log('up');
 						this.scoreUp();
 						break;
 					case this.down:
+						console.log('down');
 						this.scoreDown();
 						break;
 				}
@@ -233,7 +152,6 @@ class addComment {
 				}
 			} else if (this.replyButton.innerHTML === 'Edit') {
 				if (edit == 'closed') {
-					console.log('edit');
 					this.textForEdit = document.createElement('textarea');
 					this.textForEdit.classList.add('comment-edit-area');
 					this.textForEdit.setAttribute('rows', 5);
@@ -287,43 +205,28 @@ class addComment {
 		});
 
 		if (this.deleteButton) {
-			this.deleteButton.addEventListener('click', () => {
+			this.deleteButton.addEventListener('click', (e) => {
+				// console.log(e.target)
 				if (this.type == 'comment') {
-					const indexOfObjectToBeDeleted = localData.comments.indexOf(
-						this.comment
-					);
-					const commentObjectToBeDeletedFrom = localData.comments;
-					commentObjectToBeDeletedFrom.splice(indexOfObjectToBeDeleted, 1);
+					const commentIndex = localData.comments.indexOf(this.comment);
+					localData.comments.splice(commentIndex, 1);
+
 					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 					console.log('Comment deleted');
 				} else if (this.type == 'reply') {
-					const parentObject = localData.comments.find((comment) => {
-						return comment.id == this.comment.id;
-					});
+					const parentIndex = localData.comments.findIndex((item) => item.id == this.comment.id);
+					const replyIndex = localData.comments[parentIndex].replies.indexOf(this.comment);
 
-					const indexOfObjectToBeDeleted = localData.comments[
-						localData.comments.indexOf(parentObject)
-					].replies.indexOf(this.comment);
-					console.log(indexOfObjectToBeDeleted);
-
-					const commentObjectToBeDeletedFrom =
-						localData.comments[localData.comments.indexOf(parentObject)]
-							.replies;
-
-					// console.log(commentObjectToBeDeletedFrom);
-					console.log(parentObject);
-
-					commentObjectToBeDeletedFrom.splice(indexOfObjectToBeDeleted, 1);
+					localData.comments[parentIndex].replies.splice(replyIndex, 1);
 					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
-					console.log('Reply deleted');
 				}
 			});
 		}
 
 		// document.body.appendChild(this.sectionCenter);
-		document.body.insertBefore(this.sectionCenter, newComment);
+		// document.body.insertBefore(this.sectionCenter, newComment);
 		// this.addReply();
 	}
 
@@ -351,60 +254,35 @@ class addComment {
 				}
 			});
 		}
+
 		// New reply text input
 		this.newReplyTextInput = document.createElement('div');
 		this.newReplyTextInput.classList.add('new-reply-text-input');
 		this.newReplyTextInput.classList.add('reply-container');
-
-		// Reply text input image container
-		this.newReplyImgContainer = document.createElement('div');
-		this.newReplyImgContainer.classList.add('new-reply-text-img-container');
-		this.newReplyTextInput.appendChild(this.newReplyImgContainer);
-
-		// Reply user image
-		this.newReplyUserImage = document.createElement('img');
-		this.newReplyUserImage.classList.add('reply-user-img');
-		this.newReplyUserImage.src = localData.currentUser.image.png;
-		this.newReplyImgContainer.appendChild(this.newReplyUserImage);
-
-		// Reply textarea container
-		this.newReplyTextAreaContainer = document.createElement('div');
-		this.newReplyTextAreaContainer.classList.add('new-reply-text-area');
-		this.newReplyTextInput.appendChild(this.newReplyTextAreaContainer);
-
-		// Reply text area
-		this.newReplyTextArea = document.createElement('textarea');
-		this.newReplyTextArea.setAttribute('rows', '5');
-		this.newReplyTextArea.classList.add('comment-text-area');
-		this.newReplyTextArea.innerHTML = `@${this.comment.user.username}`;
-		this.newReplyTextAreaContainer.appendChild(this.newReplyTextArea);
-
-		// Button container
-		this.buttonContainer = document.createElement('div');
-		this.buttonContainer.classList.add('reply-buttons-container');
-		this.newReplyTextAreaContainer.appendChild(this.buttonContainer);
-
-		// Reply send button
-		this.newReplySendButton = document.createElement('button');
-		this.newReplySendButton.setAttribute('type', 'submit');
-		this.newReplySendButton.classList.add('send-reply-button');
-		this.newReplySendButton.innerHTML = 'REPLY';
-		this.buttonContainer.appendChild(this.newReplySendButton);
-
-		// Reply cancel button
-		this.newReplyCancelButton = document.createElement('button');
-		this.newReplyCancelButton.classList.add('cancel-reply-button');
-		this.newReplyCancelButton.innerHTML = 'CANCEL';
-		this.buttonContainer.appendChild(this.newReplyCancelButton);
+		this.newReplyTextInput.innerHTML = `
+			<div class="new-reply-text-img-container">
+				<img class="reply-user-img"src="${localData.currentUser.image.png}" alt="">
+			</div>
+			<div class="new-reply-text-area">
+				<textarea name="comment" class="comment-text-area" id="comment-text-area" cols="30" rows="5">@${this.comment.user.username}
+				</textarea>
+				<div class="reply-buttons-container">
+					<button type="submit" class="send-reply-button">REPLY</button>
+					<button type="submit" class="cancel-reply-button">CANCEL</button>
+				</div>
+			</div>
+		`;
 
 		// Add whole thing to main
 		this.sectionCenter.appendChild(this.newReplyTextInput);
 
+		this.newReplySendButton = this.newReplyTextInput.querySelector('.send-reply-button');
+		this.newReplyCancelButton = this.newReplyTextInput.querySelector('.cancel-reply-button');
+		this.newReplyTextArea = this.newReplyTextInput.querySelector('.comment-text-area');
+
 		this.newReplySendButton.addEventListener('click', () => {
 			const replyText = this.newReplyTextArea.value;
 			const fullReply = {
-				// id: localData.comments.length + 1,
-
 				id: this.comment.id,
 				content: replyText,
 				createdAt: 'Now',
@@ -414,35 +292,22 @@ class addComment {
 			};
 
 			if (fullReply.content && this.type == 'comment') {
-				const indexOfCommentBeingRepliedTo = localData.comments.indexOf(
-					this.comment
-				);
-
-				localData.comments[indexOfCommentBeingRepliedTo].replies.push(
-					fullReply
-				);
-
+				const commentIndex = localData.comments.indexOf(this.comment);
+				localData.comments[commentIndex].replies.push(fullReply);
 				this.sectionCenter.removeChild(this.newReplyTextInput);
+
 				localStorage.setItem('data', JSON.stringify(localData));
 				location.reload();
 			} else if (fullReply.content && this.type == 'reply') {
-				const parentObject = localData.comments.find((comment) => {
-					return comment.id == this.comment.id;
-				});
-
-				localData.comments[
-					localData.comments.indexOf(parentObject)
-				].replies.push(fullReply);
-
+				const parentIndex = localData.comments.findIndex((item) => item.id == this.comment.id);
+				localData.comments[parentIndex].replies.push(fullReply);
 				this.sectionCenter.removeChild(this.newReplyTextInput);
+
 				localStorage.setItem('data', JSON.stringify(localData));
 				location.reload();
 			} else {
 				this.newReplyTextArea.style.border = '2px solid red';
-				this.newReplyTextArea.setAttribute(
-					'placeholder',
-					'Please enter a reply!'
-				);
+				this.newReplyTextArea.setAttribute('placeholder', 'Please enter a reply!');
 			}
 		});
 
@@ -450,8 +315,6 @@ class addComment {
 			if (e.key == 'Enter') {
 				const replyText = this.newReplyTextArea.value;
 				const fullReply = {
-					// id: localData.comments.length + 1,
-
 					id: this.comment.id,
 					content: replyText,
 					createdAt: 'Now',
@@ -461,35 +324,22 @@ class addComment {
 				};
 
 				if (fullReply.content && this.type == 'comment') {
-					const indexOfCommentBeingRepliedTo = localData.comments.indexOf(
-						this.comment
-					);
-
-					localData.comments[indexOfCommentBeingRepliedTo].replies.push(
-						fullReply
-					);
-
+					const commentIndex = localData.comments.indexOf(this.comment);
+					localData.comments[commentIndex].replies.push(fullReply);
 					this.sectionCenter.removeChild(this.newReplyTextInput);
+
 					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 				} else if (fullReply.content && this.type == 'reply') {
-					const parentObject = localData.comments.find((comment) => {
-						return comment.id == this.comment.id;
-					});
-
-					localData.comments[
-						localData.comments.indexOf(parentObject)
-					].replies.push(fullReply);
-
+					const parentIndex = localData.comments.findIndex((item) => item.id == this.comment.id);
+					localData.comments[parentIndex].replies.push(fullReply);
 					this.sectionCenter.removeChild(this.newReplyTextInput);
+
 					localStorage.setItem('data', JSON.stringify(localData));
 					location.reload();
 				} else {
 					this.newReplyTextArea.style.border = '2px solid red';
-					this.newReplyTextArea.setAttribute(
-						'placeholder',
-						'Please enter a reply!'
-					);
+					this.newReplyTextArea.setAttribute('placeholder', 'Please enter a reply!');
 				}
 			}
 		});
