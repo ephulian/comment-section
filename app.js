@@ -2,6 +2,21 @@ import data from './data.json' assert { type: 'json' };
 
 // history.scrollRestoration = 'manual';
 
+const dataURL = 'http://localhost:3000/allData';
+async function getData(url) {
+	try {
+		const data = await fetch(url);
+		const response = await data.json();
+
+		return response;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+const myData = await getData(dataURL);
+console.log(myData);
+
 const newComment = document.querySelector('#new-comment');
 const newCommentSendBTN = document.querySelector('#send');
 const newCommentTextContent = document.querySelector('#comment-text-area');
@@ -118,7 +133,7 @@ class addComment {
 		this.scoreDown = this.scoreDown.bind(this);
 		this.addReply = this.addReply.bind(this);
 
-		// Score interactivity
+		// Score functionality
 		this.score.addEventListener(
 			'click',
 			(e) => {
@@ -137,7 +152,7 @@ class addComment {
 			{ once: true }
 		);
 
-		// Reply/Edit interactivity
+		// Reply/Edit functionality
 		let edit = 'closed';
 		let reply = 'closed';
 
